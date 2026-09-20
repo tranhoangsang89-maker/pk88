@@ -164,13 +164,28 @@ async def chat_endpoint(req: ChatRequest):
         else:
             # 2. Live API Mode with Key Rotation & Fallback Retries
             last_err = None
+            
+            # Dynamic Real-time Date & Year Context
+            now_dt = datetime.now()
+            current_date_str = now_dt.strftime("%d/%m/%Y")
+            current_year = now_dt.year
+            
+            time_context = (
+                f"\n\n[THỜI GIAN HIỆN TẠI HỆ THỐNG THỜI GIAN THỰC]\n"
+                f"- Hôm nay là ngày: {current_date_str} (Năm {current_year}).\n"
+                f"- LƯU Ý QUAN TRỌNG: Bạn luôn luôn nhận biết mốc thời gian hiện tại là năm {current_year}.\n"
+                f"- Khi khách hàng hỏi về các dòng máy điện thoại (iPhone, Samsung...), hãy dựa trên mốc thời gian hiện tại ({current_year}) để trả lời chuẩn xác nhất."
+            )
+            
+            dynamic_system_context = SYSTEM_CONTEXT + time_context
+
             for _ in range(len(API_KEYS)):
                 selected_key = next(api_key_cycle)
                 try:
                     genai.configure(api_key=selected_key)
                     model = genai.GenerativeModel(
-                        model_name="gemini-flash-lite-latest",
-                        system_instruction=SYSTEM_CONTEXT
+                        model_name="gemini-1.5-flash",
+                        system_instruction=dynamic_system_context
                     )
                     
                     # Build prompt with history
