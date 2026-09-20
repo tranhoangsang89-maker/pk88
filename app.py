@@ -89,6 +89,25 @@ def get_mock_reply(message: str) -> dict:
             "suggested_actions": ["Chi nhánh Mỹ Tho", "Chi nhánh Bến Tre", "Chi nhánh Cần Thơ", "Chi nhánh Vĩnh Long"]
         }
 
+    # Check for specific phone models (iPhone, Samsung, etc.)
+    if any(k in lower_msg for k in ["iphone", "ip ", "ip1", "ip2", "samsung", "xiaomi", "oppo"]):
+        if any(k in lower_msg for k in ["18", "19", "20"]):
+            reply = "Dạ anh/chị ơi! Dòng iPhone 18 hiện chưa mở bán chính thức đâu ạ. Phụ Kiện 88 hiện sẵn đầy đủ phụ kiện xịn, dán PPF cao cấp, kính cường lực cho các dòng iPhone mới nhất (16/17 Series) và các dòng máy hiện tại. Anh/chị cần dán bảo vệ hay mua phụ kiện cho máy nào để Bé 8 hỗ trợ mình liền nhé!"
+            return {
+                "speaker": "be_8",
+                "speaker_name": "Bé 8",
+                "reply": reply,
+                "suggested_actions": ["Báo giá dán PPF", "Kính cường lực HODA", "Thay pin lấy liền", "Chi nhánh Mỹ Tho"]
+            }
+        else:
+            reply = "Dạ Phụ Kiện 88 đang sẵn rất nhiều mẫu phụ kiện xịn (Ốp lưng, Cường lực HODA, Cáp sạc nhanh) và dịch vụ sửa chữa cho dòng máy này đó ạ! Bạn cần hỗ trợ sản phẩm hay dịch vụ nào để Chị 8 báo giá ưu đãi nhất cho mình nè?"
+            return {
+                "speaker": "chi_8",
+                "speaker_name": "Chị 8",
+                "reply": reply,
+                "suggested_actions": ["Ốp lưng Magsafe", "Cường lực HODA", "Dán PPF full máy", "Hotline 0833 898 688"]
+            }
+
     # Match specific product category by keywords
     catalog = KNOWLEDGE_BASE['roles']['chi_8']['catalog']
     matched_cat = None
@@ -179,45 +198,52 @@ async def chat_endpoint(req: ChatRequest):
             
             dynamic_system_context = SYSTEM_CONTEXT + time_context
 
-            for _ in range(len(API_KEYS)):
-                selected_key = next(api_key_cycle)
+            model_candidates = ["gemini-1.5-flash", "models/gemini-1.5-flash", "gemini-1.5-pro"]
+
+            for selected_key in API_KEYS:
                 try:
                     genai.configure(api_key=selected_key)
-                    model = genai.GenerativeModel(
-                        model_name="gemini-1.5-flash",
-                        system_instruction=dynamic_system_context
-                    )
-                    
-                    # Build prompt with history
-                    history_text = "Conversation History:\n"
-                    for msg in req.history:
+                    for model_name in model_candidates:
                         try:
-                            text = msg.get("parts", [{"text":""}])[0].get("text", "")
-                            history_text += f"{msg.get('role', 'user')}: {text}\n"
-                        except:
-                            pass
-                    
-                    full_prompt = history_text + f"\nNew User Message: {req.message}\nPlease respond strictly in the required JSON format."
+                            model = genai.GenerativeModel(
+                                model_name=model_name,
+                                system_instruction=dynamic_system_context
+                            )
+                            
+                            # Build prompt with history
+                            history_text = "Conversation History:\n"
+                            for msg in req.history:
+                                try:
+                                    text = msg.get("parts", [{"text":""}])[0].get("text", "")
+                                    history_text += f"{msg.get('role', 'user')}: {text}\n"
+                                except:
+                                    pass
+                            
+                            full_prompt = history_text + f"\nNew User Message: {req.message}\nPlease respond strictly in the required JSON format."
 
-                    response = model.generate_content(
-                        full_prompt,
-                        generation_config={"response_mime_type": "application/json"}
-                    )
-                    
-                    # Clean markdown code blocks if any
-                    resp_text = response.text.strip()
-                    if resp_text.startswith("```json"):
-                        resp_text = resp_text[7:]
-                    if resp_text.startswith("```"):
-                        resp_text = resp_text[3:]
-                    if resp_text.endswith("```"):
-                        resp_text = resp_text[:-3]
-                        
-                    resp_data = json.loads(resp_text.strip())
-                    break # Successfully parsed response
+                            response = model.generate_content(
+                                full_prompt,
+                                generation_config={"response_mime_type": "application/json"}
+                            )
+                            
+                            # Clean markdown code blocks if any
+                            resp_text = response.text.strip()
+                            if resp_text.startswith("```json"):
+                                resp_text = resp_text[7:]
+                            if resp_text.startswith("```"):
+                                resp_text = resp_text[3:]
+                            if resp_text.endswith("```"):
+                                resp_text = resp_text[:-3]
+                                
+                            resp_data = json.loads(resp_text.strip())
+                            break # Success
+                        except Exception as m_err:
+                            last_err = m_err
+                            continue
+                    if resp_data:
+                        break
                 except Exception as err:
                     last_err = err
-                    print(f"API Key retry warning: {err}", flush=True)
                     continue
             
             if resp_data is None:
