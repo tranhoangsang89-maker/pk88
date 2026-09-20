@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phụ Kiện 88 - Tư Vấn Trực Tuyến</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandBlack: '#121212',
+                        brandDark: '#1E1E1E',
+                        brandGold: '#D4AF37',
+                        brandGoldLight: '#F3E5AB',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #121212; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
+        
+        /* Hide scrollbar for quick actions */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        body { font-family: 'Inter', -apple-system, sans-serif; background-color: #000; }
+        
+        .chat-message { animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .bg-gradient-gold { background: linear-gradient(135deg, #D4AF37 0%, #AA7C11 100%); }
+    </style>
+</head>
+<body class="text-white h-screen flex justify-center items-center p-0 sm:p-4 bg-gray-900">
+
+    <div class="w-full h-full sm:max-w-md bg-brandBlack sm:rounded-3xl sm:border border-gray-800 flex flex-col overflow-hidden shadow-2xl relative">
+        
+        <!-- Header -->
+        <div class="p-3 bg-brandDark flex items-center justify-between border-b border-gray-800 z-10 shadow-md">
+            <div class="flex items-center">
+                <img src="logo-pk88.png" alt="Phụ Kiện 88" onerror="this.src='https://ui-avatars.com/api/?name=P+K&background=D4AF37&color=000'" class="h-10 w-10 object-contain rounded-full bg-black p-0.5 border border-brandGold mr-3">
+                <div>
+                    <h1 class="text-brandGold font-bold text-base tracking-wide">PHỤ KIỆN 88</h1>
+                    <p class="text-[11px] text-gray-400 flex items-center">
+                        <span class="w-2 h-2 rounded-full bg-green-500 mr-1.5 inline-block"></span>
+                        Trợ lý ảo Online 24/7
+                    </p>
+                </div>
+            </div>
+            <div class="flex -space-x-2 mr-2">
+                <img src="chi-8.jpeg" alt="Chị 8" onerror="this.src='https://ui-avatars.com/api/?name=C+8&background=random'" class="w-7 h-7 rounded-full border border-brandGold">
+                <img src="be-8.jpeg" alt="Bé 8" onerror="this.src='https://ui-avatars.com/api/?name=B+8&background=random'" class="w-7 h-7 rounded-full border border-brandGold">
+            </div>
+        </div>
+
+        <!-- Chat Area -->
+        <div id="chat-container" class="flex-1 overflow-y-auto p-4 space-y-6 bg-brandBlack">
+            <!-- Welcome message -->
+            <div class="flex flex-col items-center justify-center my-6">
+                <!-- Avatar Chatbot -->
+                <img src="avatar-chatbot.jpeg" alt="Chị 8 & Bé 8" onerror="this.src='sisters-88.jpeg'" class="w-32 h-32 rounded-full object-cover mb-4 border-2 border-brandGold shadow-[0_0_15px_rgba(212,175,55,0.3)]">
+                <p class="text-brandGold font-semibold text-lg">Chị 8 & Bé 8 xin chào!</p>
+                <p class="text-gray-400 text-sm text-center px-4 mt-2">Hệ thống tư vấn bán hàng & sửa chữa tự động của Phụ Kiện 88. Anh/chị cần hỗ trợ gì ạ?</p>
+            </div>
+        </div>
+
+        <!-- Loading overlay -->
+        <div id="loading" class="absolute bottom-[90px] left-4 bg-brandDark border border-gray-700 rounded-2xl p-3 flex items-center space-x-2 hidden shadow-lg z-20">
+            <div class="w-2 h-2 rounded-full bg-brandGold animate-bounce"></div>
+            <div class="w-2 h-2 rounded-full bg-brandGold animate-bounce" style="animation-delay: 0.1s"></div>
+            <div class="w-2 h-2 rounded-full bg-brandGold animate-bounce" style="animation-delay: 0.2s"></div>
+            <span class="text-xs text-gray-300 ml-2">Đang suy nghĩ...</span>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="px-3 pb-2 pt-3 bg-brandDark border-t border-gray-800 overflow-x-auto whitespace-nowrap hide-scrollbar flex space-x-2" id="quick-actions">
+            <!-- Populated by JS -->
+        </div>
+
+        <!-- Input Area -->
+        <div class="p-3 bg-brandDark">
+            <form id="chat-form" class="flex items-center bg-[#2A2A2A] rounded-full p-1 border border-gray-700 focus-within:border-brandGold transition-colors">
+                <input type="text" id="user-input" placeholder="Nhập câu hỏi của bạn..." class="flex-1 bg-transparent border-none text-sm text-white px-4 py-2 focus:outline-none placeholder-gray-500" required autocomplete="off">
+                <button type="submit" class="bg-gradient-gold text-black rounded-full p-2 hover:opacity-90 transition-opacity flex items-center justify-center mr-0.5" id="send-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+                    </svg>
+                </button>
+            </form>
+            <div class="text-center mt-2">
+                <span class="text-[9px] text-gray-500 uppercase tracking-widest">Phụ Kiện 88 - Hệ thống phụ kiện & sửa chữa số 1</span>
+            </div>
+        </div>
+        
+    </div>
+
+    <script>
+        const chatContainer = document.getElementById('chat-container');
+        const chatForm = document.getElementById('chat-form');
+        const userInput = document.getElementById('user-input');
+        const loadingIndicator = document.getElementById('loading');
+        const quickActionsContainer = document.getElementById('quick-actions');
+        const sendBtn = document.getElementById('send-btn');
+        
+        let chatHistory = [];
+        
+        const initialSuggestedActions = [
+            "Báo giá sửa chữa", 
+            "Xem thêm mẫu ốp lưng", 
+            "Để lại SĐT nhận ưu đãi",
+            "Chi nhánh gần nhất"
+        ];
+        
+        function renderQuickActions(actions) {
+            quickActionsContainer.innerHTML = '';
+            actions.forEach(action => {
+                const btn = document.createElement('button');
+                btn.className = 'px-3 py-1.5 text-[11px] font-medium border border-gray-600 bg-[#1E1E1E] text-gray-300 rounded-full hover:border-brandGold hover:text-brandGold transition-colors flex-shrink-0';
+                btn.textContent = action;
+                btn.onclick = () => {
+                    userInput.value = action;
+                    chatForm.dispatchEvent(new Event('submit'));
+                };
+                quickActionsContainer.appendChild(btn);
+            });
+        }
+        
+        // Initial render
+        renderQuickActions(initialSuggestedActions);
+        
+        function addMessage(text, isUser, speaker = null) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `chat-message flex w-full ${isUser ? 'justify-end' : 'justify-start'}`;
+            
+            if (isUser) {
+                msgDiv.innerHTML = `
+                    <div class="max-w-[80%] rounded-2xl rounded-tr-none px-4 py-2.5 bg-gradient-gold text-black shadow-md">
+                        <p class="text-[13px] font-medium">${text}</p>
+                    </div>
+                `;
+            } else {
+                const avatarSrc = speaker === 'be_8' ? 'be-8.jpeg' : 'chi-8.jpeg';
+                const speakerName = speaker === 'be_8' ? 'Bé 8' : 'Chị 8';
+                const speakerRole = speaker === 'be_8' ? 'Kỹ thuật & Sửa chữa' : 'Tư vấn bán hàng';
+                
+                // Convert formatting (bold)
+                let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                // Convert line breaks
+                formattedText = formattedText.replace(/\n/g, '<br>');
+                
+                msgDiv.innerHTML = `
+                    <div class="flex items-start max-w-[85%]">
+                        <img src="${avatarSrc}" alt="${speakerName}" class="w-9 h-9 rounded-full object-cover mt-2 mr-2.5 border border-gray-600 shadow-sm flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=${speakerName.charAt(0)}&background=random'">
+                        <div class="flex flex-col">
+                            <span class="text-[10px] text-gray-400 mb-1 ml-1 font-medium"><span class="text-brandGold">${speakerName}</span> &bull; ${speakerRole}</span>
+                            <div class="rounded-2xl rounded-tl-none px-4 py-3 bg-[#1E1E1E] text-gray-200 border border-gray-800 shadow-md">
+                                <p class="text-[13px] leading-relaxed">${formattedText}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            chatContainer.appendChild(msgDiv);
+            chatContainer.scrollTo({ top: chatContainer.scrollHeight, behavior: 'smooth' });
+        }
+        
+        chatForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const message = userInput.value.trim();
+            if (!message) return;
+            
+            // Add user message
+            addMessage(message, true);
+            userInput.value = '';
+            
+            // Show loading
+            loadingIndicator.classList.remove('hidden');
+            sendBtn.disabled = true;
+            sendBtn.classList.add('opacity-50');
+            
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: message, history: chatHistory })
+                });
+                
+                if (!response.ok) throw new Error('API Error');
+                
+                const data = await response.json();
+                
+                // Hide loading immediately before rendering message
+                loadingIndicator.classList.add('hidden');
+                
+                // Add AI message
+                addMessage(data.reply, false, data.speaker);
+                
+                // Update history
+                chatHistory.push({ role: "user", parts: [{ text: message }] });
+                chatHistory.push({ role: "model", parts: [{ text: data.reply || "" }] });
+                
+                if (chatHistory.length > 10) chatHistory = chatHistory.slice(chatHistory.length - 10);
+                
+                // Update quick actions
+                if (data.suggested_actions && data.suggested_actions.length > 0) {
+                    renderQuickActions(data.suggested_actions);
+                } else {
+                    renderQuickActions(initialSuggestedActions);
+                }
+                
+            } catch (error) {
+                console.error(error);
+                loadingIndicator.classList.add('hidden');
+                addMessage("Dạ hệ thống đang hơi bận xíu, bạn vui lòng gọi hotline 0833 898 688 để Chị 8 hỗ trợ lẹ nhất nhen!", false, 'chi_8');
+            } finally {
+                sendBtn.disabled = false;
+                sendBtn.classList.remove('opacity-50');
+                userInput.focus();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+{
+  "brand_info": {
+    "name": "Phụ Kiện 88",
+    "legal_entity": "HỘ KINH DOANH HKD PHỤ KIỆN 88",
+    "founder_ceo": "Ngô Hồng Thao",
+    "slogan": "Hệ thống bán lẻ phụ kiện và sửa chữa điện thoại hàng đầu Miền Tây",
+    "hotline": "0833 898 688",
+    "email": "phukien88team@gmail.com",
+    "website": "https://phukien88.vn",
+    "working_hours": "08h00 - 22h00 tất cả các ngày trong tuần",
+    "business_license": "55A8028344 cấp ngày 17/06/2025 bởi UBND TP Bến Tre"
+  },
+  "branches": [
+    {
+      "city": "Bến Tre",
+      "address": "35B2 Đoàn Hoàng Minh, Phường Phú Khương, TP. Bến Tre",
+      "note": "Trụ sở chính & Cơ sở 1 - Trung tâm sửa chữa, dán PPF & phụ kiện"
+    },
+    {
+      "city": "Bến Tre",
+      "address": "173 Đại Lộ Đồng Khởi, Vòng Xoay Tân Thành, Bến Tre",
+      "note": "Cơ sở 2 - Trưng bày phụ kiện & dịch vụ ép kính, thay pin"
+    },
+    {
+      "city": "Mỹ Tho (Tiền Giang)",
+      "address": "25 Đinh Bộ Lĩnh, TP. Mỹ Tho, Tỉnh Tiền Giang",
+      "note": "Chi nhánh Tiền Giang - Đầy đủ phụ kiện, dán PPF USA & sửa chữa lấy liền"
+    },
+    {
+      "city": "Vĩnh Long",
+      "address": "120 Trưng Nữ Vương, Phường Long Châu (Phường 1), TP. Vĩnh Long",
+      "note": "Chi nhánh Vĩnh Long - Bán lẻ phụ kiện, dán màn hình & thay pin"
+    },
+    {
+      "city": "Cần Thơ",
+      "address": "94 Đ. Trần Hưng Đạo, P. Thới Bình (An Nghiệp), Q. Ninh Kiều, TP. Cần Thơ",
+      "note": "Chi nhánh Cần Thơ - Trung tâm phụ kiện chính hãng & kỹ thuật điện thoại"
+    },
+    {
+      "city": "Trà Vinh",
+      "address": "29 Nguyễn Đáng (hoặc 37B Nguyễn Đáng), Phường 6, TP. Trà Vinh",
+      "note": "Chi nhánh Trà Vinh - Phụ kiện & chăm sóc điện thoại"
+    }
+  ],
+  "roles": {
+    "chi_8": {
+      "role_name": "Chị 8",
+      "title": "Chuyên viên Tư vấn Phụ kiện & Bán hàng",
+      "tone": "Ngọt ngào, đon đả, nhiệt tình, khéo léo gợi ý combo, hiếu khách miền Tây",
+      "catalog": [
+        {
+          "category": "Kính cường lực mặt trước",
+          "products": ["Cường lực HODA Sapphire Pro Max", "WiWU iVista", "Anank Samsung S25/S26 Ultra", "Kuzoom chống nhìn trộm", "Cường lực URR", "Cường lực iPad"]
+        },
+        {
+          "category": "Ốp lưng điện thoại",
+          "products": ["Ốp Magsafe loang màu thời thượng", "Ốp lưng Earl III sang trọng", "Ốp Gear4 Cry Palace chống sốc", "Ốp Likgus", "Ốp X&M vân caro độc đáo"]
+        },
+        {
+          "category": "Cáp sạc & Củ sạc",
+          "products": ["Cáp sạc nhanh 4in1 WIWU Titan 100W", "Bộ sạc nhanh Hoco N42 45W", "Bộ sạc Voltme 30W Lite", "Cáp sạc Baseus USB to Lightning/Type-C chống chai pin", "Cáp Pisen 2in1"]
+        },
+        {
+          "category": "Tai nghe & Âm thanh",
+          "products": ["Tai nghe chụp tai chống ồn ROCK O3 ANC", "Tai nghe True Wireless Bluetooth", "Loa Bluetooth Hoco HC9 / BS51", "Loa thể thao Borofone BR19", "Loa karaoke di động KIMISO KMS-197"]
+        },
+        {
+          "category": "Phụ kiện khác",
+          "products": ["Pin dự phòng sạc nhanh", "Lens bảo vệ camera HODA Sapphire", "Giá đỡ laptop/iPad WIWU S400 Pro", "Chuột không dây WIWU WM113", "Hub Type-C Hoco HB26", "Phụ kiện ô tô", "Dây đeo Apple Watch"]
+        }
+      ],
+      "policies": {
+        "shipping": "Giao hàng toàn quốc, thanh toán khi nhận hàng (COD), miễn phí đổi hàng trong 7 ngày đối với sản phẩm nguyên seal."
+      }
+    },
+    "be_8": {
+      "role_name": "Bé 8",
+      "title": "Robot Kỹ thuật & Báo giá Sửa chữa",
+      "tone": "Lém lỉnh, am hiểu kỹ thuật, chuẩn xác, nhanh nhạy, đáng tin cậy",
+      "services": [
+        {
+          "service": "Dán PPF USA cao cấp",
+          "details": "Dán full lưng viền máy chống trầy xước, tự phục hồi vết xước nhẹ, cắt CNC chuẩn xác từng model máy (iPhone 11 đến 17 Pro Max, Samsung S series, Z Fold...). Có bản trong suốt và bản đổi màu sa mạc."
+        },
+        {
+          "service": "Thay pin điện thoại lấy liền",
+          "details": "Thay pin dung lượng chuẩn và pin dung lượng cao (Pisen, Deji, Vmas...). Thời gian thay 15 phút lấy ngay trước mặt khách, bảo hành 6 - 12 tháng đổi mới."
+        },
+        {
+          "service": "Ép kính / Thay mặt kính",
+          "details": "Ép kính chân không công nghệ hiện đại, giữ lại màn hình gốc zin của máy, khắc phục nứt vỡ mặt kính ngoài, bảo hành bọt bụi keo trọn đời."
+        },
+        {
+          "service": "Thay màn hình & Thay vỏ",
+          "details": "Thay màn hình zin chính hãng hoặc linh kiện cao cấp cho iPhone, Samsung, Oppo, Xiaomi. Thay vỏ độ vỏ máy lên đời chuẩn khít 100%."
+        }
+      ],
+      "warranty_policy": "Bảo hành linh kiện từ 6 tháng đến 5 năm tùy loại. Đổi trả hàng lỗi kỹ thuật trong 12 giờ đến 3 ngày nếu phát sinh lỗi nhà sản xuất."
+    }
+  }
+}

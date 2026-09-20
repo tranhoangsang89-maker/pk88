@@ -1,0 +1,73 @@
+[
+    {
+        "phone": "0989778778",
+        "message": "anh Tú, 0989 778 778, có cửa hàng nào ở gần chỗ anh không? anh ở Mỹ Tho",
+        "timestamp": "2026-09-19T12:53:22.022429"
+    },
+    {
+        "customer_name": null,
+        "phone": "0912345678",
+        "need": "Ốp lưng iPhone 15 Pro Max",
+        "timeline": "Hôm nay",
+        "budget": "500k",
+        "branch": "Bến Tre",
+        "score": 100,
+        "label": "HOT LEAD",
+        "timestamp": "2026-09-19T13:06:58.605705"
+    },
+    {
+        "customer_name": null,
+        "phone": "0912345678",
+        "need": "Ốp lưng iPhone 15 Pro Max",
+        "timeline": "Hôm nay",
+        "budget": "500k",
+        "branch": "Bến Tre",
+        "score": 100,
+        "label": "HOT LEAD",
+        "timestamp": "2026-09-19T13:07:07.113140"
+    },
+    {
+        "customer_name": "Anh Tỉnh",
+        "phone": "0902418381",
+        "need": "Thay pin iPhone 15 Pro Max",
+        "timeline": "Sớm",
+        "budget": null,
+        "branch": null,
+        "score": 55,
+        "label": "COLD LEAD",
+        "timestamp": "2026-09-20T18:12:24.023560"
+    },
+    {
+        "customer_name": "Tỉnh",
+        "phone": "0902418381",
+        "need": "Thay pin iPhone 15 Pro Max",
+        "timeline": "Hôm nay",
+        "budget": "",
+        "branch": "Mỹ Tho",
+        "score": 85,
+        "label": "HOT LEAD",
+        "timestamp": "2026-09-20T18:13:45.381357"
+    },
+    {
+        "customer_name": "Anh Tỉnh",
+        "phone": "0902418381",
+        "need": "Thay pin iPhone 15 Pro Max",
+        "timeline": "Hôm nay",
+        "budget": "",
+        "branch": "Mỹ Tho",
+        "score": 85,
+        "label": "HOT LEAD",
+        "timestamp": "2026-09-20T18:14:19.051069"
+    },
+    {
+        "customer_name": "Anh Tỉnh",
+        "phone": "0902418381",
+        "need": "Thay pin iPhone 15 Pro Max và mua ốp lưng xịn",
+        "timeline": "Hôm nay",
+        "budget": null,
+        "branch": "Mỹ Tho",
+        "score": 85,
+        "label": "HOT LEAD",
+        "timestamp": "2026-09-20T18:22:15.042168"
+    }
+]
