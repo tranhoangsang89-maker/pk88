@@ -169,19 +169,27 @@ def send_telegram_alert(lead_data, score, label):
 @app.post("/api/chat")
 async def chat_endpoint(req: ChatRequest):
     try:
+        # Dynamically fetch API keys on request
+        active_keys = []
+        for key, value in os.environ.items():
+            if key.startswith("GEMINI_API_KEY") and value:
+                active_keys.append(value)
+        if not active_keys and os.getenv("GEMINI_API_KEY"):
+            active_keys.append(os.getenv("GEMINI_API_KEY"))
+
         # Pre-capture phone using regex as fallback
         normalized_msg = req.message.replace(' ', '').replace('.', '').replace('-', '')
         phone_match = re.search(r'(0[35789]\d{8})', normalized_msg)
         fallback_phone = phone_match.group(1) if phone_match else None
 
         resp_data = None
-        # 1. Check Mock Mode
-        if not API_KEYS:
+        # 1. Check Mock Mode if no keys exist
+        if not active_keys:
             resp_data = get_mock_reply(req.message)
             if fallback_phone:
                 resp_data["lead_info"] = {"phone": fallback_phone, "need": req.message}
         else:
-            # 2. Live API Mode with Key Rotation & Fallback Retries
+            # 2. Live API Mode with gemini-flash-lite-latest
             last_err = None
             
             # Dynamic Real-time Date & Year Context
@@ -198,9 +206,9 @@ async def chat_endpoint(req: ChatRequest):
             
             dynamic_system_context = SYSTEM_CONTEXT + time_context
 
-            model_candidates = ["gemini-1.5-flash", "models/gemini-1.5-flash", "gemini-1.5-pro"]
+            model_candidates = ["gemini-flash-lite-latest", "gemini-1.5-flash", "models/gemini-flash-lite-latest"]
 
-            for selected_key in API_KEYS:
+            for selected_key in active_keys:
                 try:
                     genai.configure(api_key=selected_key)
                     for model_name in model_candidates:
@@ -239,11 +247,13 @@ async def chat_endpoint(req: ChatRequest):
                             break # Success
                         except Exception as m_err:
                             last_err = m_err
+                            print(f"Model {model_name} error: {m_err}", flush=True)
                             continue
                     if resp_data:
                         break
                 except Exception as err:
                     last_err = err
+                    print(f"API Key error: {err}", flush=True)
                     continue
             
             if resp_data is None:
