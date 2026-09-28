@@ -244,6 +244,33 @@
                 userInput.focus();
             }
         });
+        // --- BẮT ĐẦU: CODE NHẬN TÍN HIỆU TỪ WEB APP PK88 ---
+    
+    // Cách 1: Bắt tín hiệu ngầm (postMessage)
+    window.addEventListener('message', function(event) {
+        if (event.data && event.data.type === 'CONTEXT_INJECT') {
+            const ctx = event.data.data;
+            const greetingMsg = `Dạ em chào anh/chị **${ctx.userName}**, em thấy mình đang tra cứu tiến độ máy **${ctx.device}**. Trong lúc đợi KTV sửa xong, anh/chị có cần em tư vấn thêm ốp lưng hay sạc cáp gì không ạ?`;
+            
+            addMessage(greetingMsg, false, 'chi_8'); 
+        }
+    });
+
+    // Cách 2: Bắt tín hiệu từ đường dẫn URL
+    window.addEventListener('DOMContentLoaded', function() {
+        const params = new URLSearchParams(window.location.search);
+        const customerName = params.get('name');
+        const deviceName = params.get('device');
+        
+        if (customerName && deviceName) {
+            const greetingMsg = `Dạ em chào anh/chị **${customerName}**, em thấy mình đang xem tiến độ máy **${deviceName}**. Em có thể hỗ trợ gì thêm ạ?`;
+            setTimeout(() => {
+                addMessage(greetingMsg, false, 'chi_8');
+            }, 1000); 
+        }
+    });
+    // --- KẾT THÚC: CODE NHẬN TÍN HIỆU ---
+    
     </script>
 </body>
 </html>
