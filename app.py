@@ -206,12 +206,12 @@ async def chat_endpoint(req: ChatRequest):
                 f"- Khi khách hàng hỏi về các dòng máy điện thoại (iPhone, Samsung...), hãy dựa trên mốc thời gian hiện tại ({current_year}) để trả lời chuẩn xác nhất."
             )
             
-            dynamic_system_context = SYSTEM_CONTEXT + time_context
-                            if req.context and req.context.get('userName'):
-                                khach = req.context.get('userName')
-                                may = req.context.get('device')
-                                phieu = req.context.get('ticketCode')
-                                dynamic_system_context += f"\n\n[LỆNH TỐI CAO]: Đang chat với khách VIP tên {khach}. Khách đang xem tiến độ sửa máy {may} (Mã phiếu: {phieu}). BẮT BUỘC xưng hô bằng tên {khach} (Ví dụ: Dạ em chào anh/chị {khach}) và tập trung tư vấn cho máy {may}! Nếu khách hỏi giá sửa mà chưa có, hãy xin SĐT để báo sau, tuyệt đối không bịa giá."
+        dynamic_system_context = SYSTEM_CONTEXT + time_context
+        if req.context and req.context.get('userName'):
+            khach = req.context.get('userName')
+            may = req.context.get('device')
+            phieu = req.context.get('ticketCode')
+            dynamic_system_context += f"\n\n[LỆNH TỐI CAO]: Đang chat với khách VIP tên {khach}. Khách đang xem tiến độ sửa máy {may} (Mã phiếu: {phieu}). BẮT BUỘC xưng hô bằng tên {khach} (Ví dụ: Dạ em chào anh/chị {khach}) và tập trung tư vấn cho máy {may}! Nếu khách hỏi giá sửa mà chưa có, hãy xin SĐT để báo sau, tuyệt đối không bịa giá."
 
             model_candidates = ["gemini-flash-lite-latest", "gemini-1.5-flash", "models/gemini-flash-lite-latest"]
 
