@@ -208,7 +208,16 @@
                 const response = await fetch('/api/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: message, history: chatHistory })
+                    body: JSON.stringify({ 
+    message: message, 
+    history: chatHistory,
+    context: {
+        userName: new URLSearchParams(window.location.search).get('name'),
+        device: new URLSearchParams(window.location.search).get('device'),
+        ticketCode: new URLSearchParams(window.location.search).get('ticket')
+    }
+})
+
                 });
                 
                 if (!response.ok) throw new Error('API Error');
