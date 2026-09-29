@@ -53,6 +53,7 @@ SYSTEM_CONTEXT = SYSTEM_INSTRUCTION + "\n\nKnowledge Base:\n" + json.dumps(KNOWL
 class ChatRequest(BaseModel):
     message: str
     history: list = []
+    context: dict = None
 
 def get_mock_reply(message: str) -> dict:
     """Mock demo fallback when no API key is provided, intelligently answers based on Knowledge Base."""
@@ -205,6 +206,11 @@ async def chat_endpoint(req: ChatRequest):
             )
             
             dynamic_system_context = SYSTEM_CONTEXT + time_context
+            if req.context and req.context.get('userName'):
+                khach = req.context.get('userName')
+                may = req.context.get('device')
+                phieu = req.context.get('ticketCode')
+                dynamic_system_context += f"\n\n[LỆNH TỐI CAO]: Đang chat với khách VIP tên {khach}. Khách đang xem tiến độ sửa máy {may} (Mã phiếu: {phieu}). BẮT BUỘC xưng hô bằng tên {khach} (Ví dụ: Dạ em chào anh/chị {khach}) và tập trung tư vấn cho máy {may}! Nếu khách hỏi giá sửa mà chưa có, hãy xin SĐT để báo sau, tuyệt đối không bịa giá."
 
             model_candidates = ["gemini-flash-lite-latest", "gemini-1.5-flash", "models/gemini-flash-lite-latest"]
 
