@@ -4,6 +4,7 @@ import os
 import random
 import itertools
 import re
+import uuid
 from datetime import datetime
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -47,7 +48,32 @@ if not API_KEYS and os.getenv("GEMINI_API_KEY"):
 print(f"DEBUG: Loaded {len(API_KEYS)} API keys")
 api_key_cycle = itertools.cycle(API_KEYS) if API_KEYS else None
 
-# Prepare system instruction context
+# ── Supabase config ──────────────────────────────────────────────
+SUPABASE_URL = os.getenv("SUPABASE_URL", "")
+SUPABASE_KEY = os.getenv("SUPABASE_SERVICE_ROLE_KEY", "")
+
+def supabase_insert_lead(lead: dict) -> bool:
+    """Ghi lead vào Supabase. Trả về True nếu thành công."""
+    if not SUPABASE_URL or not SUPABASE_KEY:
+        return False
+    try:
+        r = requests.post(
+            f"{SUPABASE_URL}/rest/v1/leads",
+            headers={
+                "apikey": SUPABASE_KEY,
+                "Authorization": f"Bearer {SUPABASE_KEY}",
+                "Content-Type": "application/json",
+                "Prefer": "return=minimal"
+            },
+            json=lead,
+            timeout=5
+        )
+        return r.status_code in [200, 201]
+    except Exception as e:
+        print(f"Supabase insert error: {e}", flush=True)
+        return False
+
+# ── Prepare system context ────────────────────────────────────────
 SYSTEM_CONTEXT = SYSTEM_INSTRUCTION + "\n\nKnowledge Base:\n" + json.dumps(KNOWLEDGE_BASE, ensure_ascii=False)
 
 class ChatRequest(BaseModel):
@@ -293,23 +319,31 @@ async def chat_endpoint(req: ChatRequest):
             lead_info["score"] = score
             lead_info["label"] = label
             lead_info["timestamp"] = datetime.now().isoformat()
-            
-            # Save to leads.json (safely handled for serverless environments)
-            try:
-                leads_file = os.path.join(BASE_DIR, "leads.json")
-                leads = []
-                if os.path.exists(leads_file):
-                    try:
-                        with open(leads_file, "r", encoding="utf-8") as f:
-                            leads = json.load(f)
-                    except json.JSONDecodeError:
-                        leads = []
-                        
-                leads.append(lead_info)
-                with open(leads_file, "w", encoding="utf-8") as f:
-                    json.dump(leads, f, ensure_ascii=False, indent=4)
-            except Exception as fe:
-                print(f"File write skipped on serverless: {fe}", flush=True)
+            lead_info["lead_id"] = str(uuid.uuid4())
+            lead_info["status"] = "NEW"
+            lead_info["source"] = "chatbot"
+
+            # 1. Luu vao Supabase (uu tien)
+            saved_to_supabase = supabase_insert_lead(lead_info)
+            if saved_to_supabase:
+                print(f"Lead saved to Supabase: {lead_info.get('phone')}", flush=True)
+            else:
+                # 2. Fallback: luu vao leads.json neu Supabase loi
+                try:
+                    leads_file = os.path.join(BASE_DIR, "leads.json")
+                    leads = []
+                    if os.path.exists(leads_file):
+                        try:
+                            with open(leads_file, "r", encoding="utf-8") as f:
+                                leads = json.load(f)
+                        except json.JSONDecodeError:
+                            leads = []
+                    leads.append(lead_info)
+                    with open(leads_file, "w", encoding="utf-8") as f:
+                        json.dump(leads, f, ensure_ascii=False, indent=4)
+                    print(f"Lead saved to leads.json (fallback)", flush=True)
+                except Exception as fe:
+                    print(f"File write skipped: {fe}", flush=True)
                 
             # Send Telegram Alert
             send_telegram_alert(lead_info, score, label)
