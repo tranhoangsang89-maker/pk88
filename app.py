@@ -212,55 +212,47 @@ async def chat_endpoint(req: ChatRequest):
                 phieu = req.context.get('ticketCode')
                 dynamic_system_context += f"\n\n[LỆNH TỐI CAO]: Đang chat với khách VIP tên {khach}. Khách đang xem tiến độ sửa máy {may} (Mã phiếu: {phieu}). BẮT BUỘC xưng hô bằng tên {khach} (Ví dụ: Dạ em chào anh/chị {khach}) và tập trung tư vấn cho máy {may}! Nếu khách hỏi giá sửa mà chưa có, hãy xin SĐT để báo sau, tuyệt đối không bịa giá."
 
-            model_candidates = ["gemini-flash-lite-latest", "gemini-3.5-flash"]
+            MODEL_NAME = "gemini-flash-lite-latest"
 
             for selected_key in active_keys:
                 try:
                     genai.configure(api_key=selected_key)
-                    for model_name in model_candidates:
+                    model = genai.GenerativeModel(
+                        model_name=MODEL_NAME,
+                        system_instruction=dynamic_system_context
+                    )
+                    
+                    # Build prompt with history
+                    history_text = "Conversation History:\n"
+                    for msg in req.history:
                         try:
-                            model = genai.GenerativeModel(
-                                model_name=model_name,
-                                system_instruction=dynamic_system_context
-                            )
-                            
-                            # Build prompt with history
-                            history_text = "Conversation History:\n"
-                            for msg in req.history:
-                                try:
-                                    text = msg.get("parts", [{"text":""}])[0].get("text", "")
-                                    history_text += f"{msg.get('role', 'user')}: {text}\n"
-                                except:
-                                    pass
-                            
-                            full_prompt = history_text + f"\nNew User Message: {req.message}\nPlease respond strictly in the required JSON format."
+                            text = msg.get("parts", [{"text":""}])[0].get("text", "")
+                            history_text += f"{msg.get('role', 'user')}: {text}\n"
+                        except:
+                            pass
+                    
+                    full_prompt = history_text + f"\nNew User Message: {req.message}\nPlease respond strictly in the required JSON format."
 
-                            response = model.generate_content(
-                                full_prompt,
-                                generation_config={"response_mime_type": "application/json"},
-                                request_options={"timeout": 8}
-                            )
-                            
-                            # Clean markdown code blocks if any
-                            resp_text = response.text.strip()
-                            if resp_text.startswith("```json"):
-                                resp_text = resp_text[7:]
-                            if resp_text.startswith("```"):
-                                resp_text = resp_text[3:]
-                            if resp_text.endswith("```"):
-                                resp_text = resp_text[:-3]
-                                
-                            resp_data = json.loads(resp_text.strip())
-                            break # Success
-                        except Exception as m_err:
-                            last_err = m_err
-                            print(f"Model {model_name} error: {m_err}", flush=True)
-                            continue
-                    if resp_data:
-                        break
+                    response = model.generate_content(
+                        full_prompt,
+                        generation_config={"response_mime_type": "application/json"},
+                        request_options={"timeout": 15}
+                    )
+                    
+                    # Clean markdown code blocks if any
+                    resp_text = response.text.strip()
+                    if resp_text.startswith("```json"):
+                        resp_text = resp_text[7:]
+                    if resp_text.startswith("```"):
+                        resp_text = resp_text[3:]
+                    if resp_text.endswith("```"):
+                        resp_text = resp_text[:-3]
+                        
+                    resp_data = json.loads(resp_text.strip())
+                    break # Success
                 except Exception as err:
                     last_err = err
-                    print(f"API Key error: {err}", flush=True)
+                    print(f"[{MODEL_NAME}] API Key error: {err}", flush=True)
                     continue
             
             if resp_data is None:
