@@ -284,7 +284,14 @@ Cac file da duoc dong bo:
 - PK88_System_Prompt_GA_IDE.md
 - app.py (mock handlers & prompt sync)
 
+### 3. Tich hop Google Maps & Ban do Mini:
+- File nguon: google-maps.txt
+- Bo sung link Google Maps, landmark mieu ta va hotline tung chi nhanh.
+- index.html: Tu dong phat hien va render khung iframe Ban do Mini (Google Maps) va nut bam "Chi duong Google Maps" mo tab moi.
+- app.py: Fix json.loads(strict=False) de tranh loi control character khi Gemini sinh text dai.
+
 ---
 
-*Duoc cap nhat boi Antigravity AI — 13/10/2026 14:55*
+*Duoc cap nhat boi Antigravity AI — 13/10/2026 15:27*
+
 

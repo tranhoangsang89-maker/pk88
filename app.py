@@ -115,13 +115,54 @@ def get_mock_reply(message: str) -> dict:
         }
 
     # Check for Chi nhánh info
-    if any(k in lower_msg for k in ["chi nhánh", "địa chỉ", "ở đâu", "cửa hàng", "tìm shop", "gần nhất"]):
+    branch_matches = {
+        "phú khương": 0, "bến tre 1": 0,
+        "đồng khởi": 1, "bến tre 2": 1,
+        "mỹ tho": 2, "tiền giang": 2,
+        "vĩnh long": 3,
+        "cần thơ": 4, "ninh kiều": 4,
+        "thủ đức": 5, "hồ chí minh": 5, "tp.hcm": 5, "tphcm": 5
+    }
+    
+    # Specific branch query
+    matched_branch_idx = None
+    for kw, idx in branch_matches.items():
+        if kw in lower_msg:
+            matched_branch_idx = idx
+            break
+            
+    if matched_branch_idx is not None and matched_branch_idx < len(KNOWLEDGE_BASE.get('branches', [])):
+        b = KNOWLEDGE_BASE['branches'][matched_branch_idx]
+        landmark_str = f" ({b['landmark']})" if b.get('landmark') else ""
+        reply = (
+            f"Dạ ở {b.get('city', 'khu vực này')}, bạn ghé ngay chi nhánh **{b['name']}** tại **{b['address']}**{landmark_str} giúp Chị 8 nha! "
+            f"Cửa hàng mở cửa suốt từ 7h sáng đến 22h tối mỗi ngày ạ.\n\n"
+            f"Bạn bấm nút chỉ đường bên dưới để Google Maps dẫn đường tới tận nơi nhé! Không biết bạn dự định ghé lúc nào để Chị 8 dặn các bạn giữ sẵn hàng đón tiếp mình chu đáo nè?"
+        )
+        return {
+            "speaker": "chi_8",
+            "speaker_name": "Chị 8",
+            "reply": reply,
+            "suggested_actions": ["Xem các chi nhánh khác", "Tư vấn dán PPF", "Hotline 0833 898 688"]
+        }
+
+    if any(k in lower_msg for k in ["chi nhánh", "địa chỉ", "ở đâu", "cửa hàng", "tìm shop", "gần nhất", "bản đồ", "map"]):
         branch_lines = []
         for i, b in enumerate(KNOWLEDGE_BASE.get('branches', []), 1):
             name = b.get('name', f"Phụ Kiện 88 - {b.get('city')}")
-            branch_lines.append(f"{i}. {name}:\n   Địa chỉ: {b['address']}")
-        branches_str = "\n".join(branch_lines)
-        reply = f"Chị 8 gửi bạn thông tin chính xác 6 chi nhánh chính thức của Phụ Kiện 88 (mở cửa từ 7h sáng đến 22h tối mỗi ngày):\n\n{branches_str}\n\nBạn đang ở gần khu vực nào để Chị 8 chỉ đường ra cửa hàng nhanh nhất ạ?"
+            landmark_info = f" ({b['landmark']})" if b.get('landmark') else ""
+            branch_lines.append(
+                f"**{i}. {name}:**\n"
+                f"- Địa chỉ: {b['address']}{landmark_info}\n"
+                f"- Hotline: {b.get('phone', '0833 898 688')} | [Chỉ Đường Google Maps]({b['map_url']})"
+            )
+        branches_str = "\n\n".join(branch_lines)
+        reply = (
+            f"Chị 8 gửi bạn danh sách chính xác 6 chi nhánh chính thức của Phụ Kiện 88 "
+            f"(mở cửa từ 7h sáng đến 22h tối mỗi ngày):\n\n"
+            f"{branches_str}\n\n"
+            f"Bạn đang ở gần khu vực nào để Chị 8 chỉ đường ra cửa hàng nhanh nhất đón tiếp bạn nha?"
+        )
         return {
             "speaker": "chi_8",
             "speaker_name": "Chị 8",
@@ -287,7 +328,7 @@ async def chat_endpoint(req: ChatRequest):
                     if resp_text.endswith("```"):
                         resp_text = resp_text[:-3]
                         
-                    resp_data = json.loads(resp_text.strip())
+                    resp_data = json.loads(resp_text.strip(), strict=False)
                     break # Success
                 except Exception as err:
                     last_err = err

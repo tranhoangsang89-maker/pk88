@@ -15,36 +15,60 @@
       "name": "Phụ Kiện 88 - Phú Khương (Bến Tre 1)",
       "city": "Bến Tre",
       "address": "35B2 Đoàn Hoàng Minh, Phường Phú Khương, TP. Bến Tre, Tỉnh Vĩnh Long",
+      "landmark": "Đối diện cây xăng ngã tư Phú Khương",
+      "phone": "0836 676 999",
+      "map_url": "https://maps.app.goo.gl/muGUaLKBemMx66687?g_st=ic",
+      "embed_query": "35B2 Đoàn Hoàng Minh, Phường Phú Khương, TP. Bến Tre",
       "note": "Trụ sở chính & Cơ sở 1 - Trung tâm sửa chữa, dán PPF & phụ kiện"
     },
     {
       "name": "Phụ Kiện 88 - Đồng Khởi (Bến Tre 2)",
       "city": "Bến Tre",
       "address": "173 Đại Lộ Đồng Khởi, Vòng Xoay Tân Thành, TP. Bến Tre, Tỉnh Vĩnh Long",
+      "landmark": "Ngay vòng xoay Tân Thành, đối diện Cafe Trung Nguyên",
+      "phone": "0833 898 688",
+      "map_url": "https://www.google.com/maps/search/?api=1&query=Ph%E1%BB%A5+Ki%E1%BB%87n+88+173+%C4%90%E1%BA%A1i+L%E1%BB%99+%C4%90%E1%BB%93ng+Kh%E1%BB%9Fi+B%E1%BA%BFn+Tre",
+      "embed_query": "173 Đại Lộ Đồng Khởi, Phường Phú Tân, TP. Bến Tre",
       "note": "Cơ sở 2 - Trưng bày phụ kiện & dịch vụ ép kính, thay pin"
     },
     {
       "name": "Phụ Kiện 88 - Mỹ Tho",
       "city": "Mỹ Tho",
       "address": "25 Đinh Bộ Lĩnh, TP. Mỹ Tho, Tỉnh Đồng Tháp",
+      "landmark": "Ngay ngã tư Đinh Bộ Lĩnh & Trịnh Hoài Đức, dốc chân Cầu Quay",
+      "phone": "0833 898 688",
+      "map_url": "https://maps.app.goo.gl/cwVDsfKvkaRTxbhf7?g_st=ic",
+      "embed_query": "25 Đinh Bộ Lĩnh, Phường 2, TP. Mỹ Tho, Tiền Giang",
       "note": "Chi nhánh Mỹ Tho - Đầy đủ phụ kiện, dán PPF USA & sửa chữa lấy liền"
     },
     {
       "name": "Phụ Kiện 88 - Vĩnh Long",
       "city": "Vĩnh Long",
       "address": "120 Trưng Nữ Vương, Phường Long Châu, TP. Vĩnh Long, Tỉnh Vĩnh Long",
+      "landmark": "Ngã tư Trưng Nữ Vương & Nguyễn Thị Minh Khai, cạnh Mắt Kính TÂM ĐỨC",
+      "phone": "0833 898 688",
+      "map_url": "https://maps.app.goo.gl/RuZbMn1eGQLg3xHRA?g_st=ipc",
+      "embed_query": "120 Trưng Nữ Vương, Phường 1, TP. Vĩnh Long",
       "note": "Chi nhánh Vĩnh Long - Bán lẻ phụ kiện, dán màn hình & thay pin"
     },
     {
       "name": "Phụ Kiện 88 - Cần Thơ",
       "city": "Cần Thơ",
       "address": "94 Đường Trần Hưng Đạo, Phường Thới Bình, Quận Ninh Kiều, TP. Cần Thơ",
+      "landmark": "Ngã ba Trần Hưng Đạo & Lý Tự Trọng, cạnh gà rán Jollibee",
+      "phone": "0833 898 688",
+      "map_url": "https://maps.app.goo.gl/HwvwgQiZTRnUeXBj9",
+      "embed_query": "94 Đường Trần Hưng Đạo, Phường An Nghiệp, Ninh Kiều, Cần Thơ",
       "note": "Chi nhánh Cần Thơ - Trung tâm phụ kiện chính hãng & kỹ thuật điện thoại"
     },
     {
       "name": "Phụ Kiện 88 - Thủ Đức (TP.HCM)",
       "city": "TP. Hồ Chí Minh",
       "address": "178A Võ Văn Ngân, Phường Bình Thọ, TP. Thủ Đức, TP. Hồ Chí Minh",
+      "landmark": "Mặt tiền đường Võ Văn Ngân, Phường Bình Thọ",
+      "phone": "0833 898 688",
+      "map_url": "https://maps.app.goo.gl/KfNyFD4nQRzFbJsMA",
+      "embed_query": "178A Võ Văn Ngân, Bình Thọ, Thủ Đức, Hồ Chí Minh",
       "note": "Chi nhánh Thủ Đức (TP.HCM) - Phụ kiện cao cấp & sửa chữa điện thoại"
     }
   ],
