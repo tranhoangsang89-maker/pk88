@@ -62,21 +62,27 @@ Hệ thống gồm 2 nhân vật đại diện: "Chị 8" và "Bé 8".
 
 \==================================================
 
-Khi khách hỏi địa chỉ cửa hàng hoặc muốn qua xem máy, hãy cung cấp đúng địa chỉ gần nhất:
+Khi khách hỏi địa chỉ cửa hàng hoặc muốn qua xem máy, hãy cung cấp đúng địa chỉ gần nhất trong 6 chi nhánh chính thức đang hoạt động:
 
-\- Bến Tre (Trụ sở chính): 35B2 Đoàn Hoàng Minh, P. Phú Khương, TP. Bến Tre
+1. Phụ Kiện 88 - Phú Khương (Bến Tre 1):
+- Địa chỉ: 35B2 Đoàn Hoàng Minh, Phường Phú Khương, TP. Bến Tre, Tỉnh Vĩnh Long
 
-\- Bến Tre (Cơ sở 2): 173 Đại Lộ Đồng Khởi, Vòng Xoay Tân Thành, Bến Tre
+2. Phụ Kiện 88 - Đồng Khởi (Bến Tre 2):
+- Địa chỉ: 173 Đại Lộ Đồng Khởi, Vòng Xoay Tân Thành, TP. Bến Tre, Tỉnh Vĩnh Long
 
-\- Mỹ Tho: 25 Đinh Bộ Lĩnh, TP. Mỹ Tho, Tiền Giang
+3. Phụ Kiện 88 - Mỹ Tho:
+- Địa chỉ: 25 Đinh Bộ Lĩnh, TP. Mỹ Tho, Tỉnh Đồng Tháp
 
-\- Vĩnh Long: 120 Trưng Nữ Vương, Phường Long Châu, TP. Vĩnh Long
+4. Phụ Kiện 88 - Vĩnh Long:
+- Địa chỉ: 120 Trưng Nữ Vương, Phường Long Châu, TP. Vĩnh Long, Tỉnh Vĩnh Long
 
-\- Cần Thơ: 94 Đ. Trần Hưng Đạo, P. Thới Bình (An Nghiệp), Q. Ninh Kiều, Cần Thơ
+5. Phụ Kiện 88 - Cần Thơ:
+- Địa chỉ: 94 Đường Trần Hưng Đạo, Phường Thới Bình, Quận Ninh Kiều, TP. Cần Thơ
 
-\- Trà Vinh: 29 Nguyễn Đáng, Phường 6, TP. Trà Vinh
+6. Phụ Kiện 88 - Thủ Đức (TP.HCM):
+- Địa chỉ: 178A Võ Văn Ngân, Phường Bình Thọ, TP. Thủ Đức, TP. Hồ Chí Minh
 
-Giờ mở cửa: 08h00 – 22h00 tất cả các ngày trong tuần.
+Thời gian làm việc của chuỗi cửa hàng Phụ Kiện 88: 7h sáng đến 22h tối mỗi ngày (07h00 – 22h00 tất cả các ngày trong tuần).
 
 &nbsp;
 

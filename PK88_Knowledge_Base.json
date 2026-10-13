@@ -7,39 +7,45 @@
     "hotline": "0833 898 688",
     "email": "phukien88team@gmail.com",
     "website": "https://phukien88.vn",
-    "working_hours": "08h00 - 22h00 tất cả các ngày trong tuần",
+    "working_hours": "07h00 - 22h00 tất cả các ngày trong tuần (7h sáng đến 22h tối mỗi ngày)",
     "business_license": "55A8028344 cấp ngày 17/06/2025 bởi UBND TP Bến Tre"
   },
   "branches": [
     {
+      "name": "Phụ Kiện 88 - Phú Khương (Bến Tre 1)",
       "city": "Bến Tre",
-      "address": "35B2 Đoàn Hoàng Minh, Phường Phú Khương, TP. Bến Tre",
+      "address": "35B2 Đoàn Hoàng Minh, Phường Phú Khương, TP. Bến Tre, Tỉnh Vĩnh Long",
       "note": "Trụ sở chính & Cơ sở 1 - Trung tâm sửa chữa, dán PPF & phụ kiện"
     },
     {
+      "name": "Phụ Kiện 88 - Đồng Khởi (Bến Tre 2)",
       "city": "Bến Tre",
-      "address": "173 Đại Lộ Đồng Khởi, Vòng Xoay Tân Thành, Bến Tre",
+      "address": "173 Đại Lộ Đồng Khởi, Vòng Xoay Tân Thành, TP. Bến Tre, Tỉnh Vĩnh Long",
       "note": "Cơ sở 2 - Trưng bày phụ kiện & dịch vụ ép kính, thay pin"
     },
     {
-      "city": "Mỹ Tho (Tiền Giang)",
-      "address": "25 Đinh Bộ Lĩnh, TP. Mỹ Tho, Tỉnh Tiền Giang",
-      "note": "Chi nhánh Tiền Giang - Đầy đủ phụ kiện, dán PPF USA & sửa chữa lấy liền"
+      "name": "Phụ Kiện 88 - Mỹ Tho",
+      "city": "Mỹ Tho",
+      "address": "25 Đinh Bộ Lĩnh, TP. Mỹ Tho, Tỉnh Đồng Tháp",
+      "note": "Chi nhánh Mỹ Tho - Đầy đủ phụ kiện, dán PPF USA & sửa chữa lấy liền"
     },
     {
+      "name": "Phụ Kiện 88 - Vĩnh Long",
       "city": "Vĩnh Long",
-      "address": "120 Trưng Nữ Vương, Phường Long Châu (Phường 1), TP. Vĩnh Long",
+      "address": "120 Trưng Nữ Vương, Phường Long Châu, TP. Vĩnh Long, Tỉnh Vĩnh Long",
       "note": "Chi nhánh Vĩnh Long - Bán lẻ phụ kiện, dán màn hình & thay pin"
     },
     {
+      "name": "Phụ Kiện 88 - Cần Thơ",
       "city": "Cần Thơ",
-      "address": "94 Đ. Trần Hưng Đạo, P. Thới Bình (An Nghiệp), Q. Ninh Kiều, TP. Cần Thơ",
+      "address": "94 Đường Trần Hưng Đạo, Phường Thới Bình, Quận Ninh Kiều, TP. Cần Thơ",
       "note": "Chi nhánh Cần Thơ - Trung tâm phụ kiện chính hãng & kỹ thuật điện thoại"
     },
     {
-      "city": "Trà Vinh",
-      "address": "29 Nguyễn Đáng (hoặc 37B Nguyễn Đáng), Phường 6, TP. Trà Vinh",
-      "note": "Chi nhánh Trà Vinh - Phụ kiện & chăm sóc điện thoại"
+      "name": "Phụ Kiện 88 - Thủ Đức (TP.HCM)",
+      "city": "TP. Hồ Chí Minh",
+      "address": "178A Võ Văn Ngân, Phường Bình Thọ, TP. Thủ Đức, TP. Hồ Chí Minh",
+      "note": "Chi nhánh Thủ Đức (TP.HCM) - Phụ kiện cao cấp & sửa chữa điện thoại"
     }
   ],
   "roles": {

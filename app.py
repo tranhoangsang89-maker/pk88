@@ -105,15 +105,28 @@ def get_mock_reply(message: str) -> dict:
             "suggested_actions": ["Chi nhánh gần nhất", "Giá thay pin iPhone", "Báo giá dán PPF", "Chính sách bảo hành"]
         }
     
+    # Check for working hours
+    if any(k in lower_msg for k in ["mở cửa", "đóng cửa", "mấy giờ", "giờ làm việc", "thời gian làm việc", "giờ mở cửa"]):
+        return {
+            "speaker": "chi_8",
+            "speaker_name": "Chị 8",
+            "reply": "Dạ chuỗi cửa hàng Phụ Kiện 88 mở cửa phục vụ từ 7h sáng đến 22h tối mỗi ngày (tất cả các ngày trong tuần) luôn đó ạ! Bạn định ghé chi nhánh nào để bên mình đón tiếp chu đáo nha?",
+            "suggested_actions": ["Xem 6 chi nhánh", "Chi nhánh gần nhất", "Tư vấn dán PPF", "Hotline 0833 898 688"]
+        }
+
     # Check for Chi nhánh info
     if any(k in lower_msg for k in ["chi nhánh", "địa chỉ", "ở đâu", "cửa hàng", "tìm shop", "gần nhất"]):
-        branches = "\n".join([f"- {b['city']}: {b['address']} ({b['note']})" for b in KNOWLEDGE_BASE['branches'][:3]]) 
-        reply = f"Chị 8 gửi bạn thông tin các chi nhánh tiêu biểu bên mình nhé:\n{branches}\n\nBạn đang ở khu vực nào (Bến Tre, Mỹ Tho, Cần Thơ, Vĩnh Long, Trà Vinh) để Chị 8 chỉ đường ra cửa hàng gần nhất ạ?"
+        branch_lines = []
+        for i, b in enumerate(KNOWLEDGE_BASE.get('branches', []), 1):
+            name = b.get('name', f"Phụ Kiện 88 - {b.get('city')}")
+            branch_lines.append(f"{i}. {name}:\n   Địa chỉ: {b['address']}")
+        branches_str = "\n".join(branch_lines)
+        reply = f"Chị 8 gửi bạn thông tin chính xác 6 chi nhánh chính thức của Phụ Kiện 88 (mở cửa từ 7h sáng đến 22h tối mỗi ngày):\n\n{branches_str}\n\nBạn đang ở gần khu vực nào để Chị 8 chỉ đường ra cửa hàng nhanh nhất ạ?"
         return {
             "speaker": "chi_8",
             "speaker_name": "Chị 8",
             "reply": reply,
-            "suggested_actions": ["Chi nhánh Mỹ Tho", "Chi nhánh Bến Tre", "Chi nhánh Cần Thơ", "Chi nhánh Vĩnh Long"]
+            "suggested_actions": ["Chi nhánh Phú Khương", "Chi nhánh Đồng Khởi", "Chi nhánh Mỹ Tho", "Chi nhánh Thủ Đức", "Chi nhánh Cần Thơ", "Chi nhánh Vĩnh Long"]
         }
 
     # Check for specific phone models (iPhone, Samsung, etc.)
